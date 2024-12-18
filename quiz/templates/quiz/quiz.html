@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz App</title>
+</head>
+<body>
+    <h1>Quiz App</h1>
+    
+    {% if is_correct is not None %}
+        <p>
+            {% if is_correct %}
+                Correct Answer! 🎉
+            {% else %}
+                Wrong Answer! 😕
+            {% endif %}
+        </p>
+    {% endif %}
+
+    <h2>Score</h2>
+    <p>Total Questions: {{ total_questions|default:0 }}</p>
+    <p>Correct Answers: {{ correct_answers|default:0 }}</p>
+    <p>Incorrect Answers: {{ incorrect_answers|default:0 }}</p>
+
+    <h2>Question</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="question_id" value="{{ question.id }}">
+        <p>{{ question.text }}</p>
+        
+        <input type="radio" name="selected_option" value="1" required> 
+        {{ question.option1 }}<br>
+        
+        <input type="radio" name="selected_option" value="2" required> 
+        {{ question.option2 }}<br>
+        
+        <input type="radio" name="selected_option" value="3" required> 
+        {{ question.option3 }}<br>
+        
+        <input type="radio" name="selected_option" value="4" required> 
+        {{ question.option4 }}<br>
+        
+        <input type="submit" value="Submit Answer">
+    </form>
+</body>
+</html>
